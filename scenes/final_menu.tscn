@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://cn0yfj11xu33j"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_bnxum"]
+[ext_resource type="FontFile" uid="uid://cni3hjbxy6pnu" path="res://fonts/Minecraftia-Regular.ttf" id="2_3dlh1"]
+[ext_resource type="Texture2D" uid="uid://da54m0jdghupq" path="res://images/bg.png" id="3_nv6uu"]
+[ext_resource type="AudioStream" uid="uid://d2taehjqrd6fc" path="res://sounds/chill.mp3" id="4_o0k1n"]
+
+[sub_resource type="Theme" id="Theme_iitj0"]
+default_font = ExtResource("2_3dlh1")
+
+[sub_resource type="LabelSettings" id="LabelSettings_rxbhm"]
+font = ExtResource("2_3dlh1")
+font_size = 48
+outline_size = 24
+outline_color = Color(0, 0, 0, 1)
+
+[node name="final_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bnxum")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 432.0
+offset_right = 768.0
+offset_bottom = 512.0
+theme = SubResource("Theme_iitj0")
+text = "Start Game"
+
+[node name="Bg" type="Sprite2D" parent="."]
+z_index = -99
+position = Vector2(688, 384)
+scale = Vector2(0.31562, 0.31562)
+texture = ExtResource("3_nv6uu")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 48.0
+offset_right = 1088.0
+offset_bottom = 288.0
+text = "Happy Birthday Rosalee!"
+label_settings = SubResource("LabelSettings_rxbhm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_o0k1n")
+autoplay = true
+
+[node name="FinalTime" type="Label" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 224.0
+offset_right = 1088.0
+offset_bottom = 464.0
+text = "Final Time"
+label_settings = SubResource("LabelSettings_rxbhm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

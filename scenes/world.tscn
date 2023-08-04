@@ -1,0 +1,333 @@
+[gd_scene load_steps=29 format=3 uid="uid://rup4bwoobo6a"]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_hk2yf"]
+[ext_resource type="PackedScene" uid="uid://cfqlj237podfe" path="res://scenes/player.tscn" id="2_dhybm"]
+[ext_resource type="Texture2D" uid="uid://gnkwmgmvkr22" path="res://images/leaf.png" id="3_2e0dx"]
+[ext_resource type="PackedScene" uid="uid://cx6dj50mlqace" path="res://scenes/tilemap.tscn" id="4_xai7g"]
+[ext_resource type="PackedScene" uid="uid://dw201s0m6y7cd" path="res://scenes/parallax.tscn" id="5_qxf4x"]
+[ext_resource type="Script" path="res://scripts/WaterArea.gd" id="6_ol2nj"]
+[ext_resource type="AudioStream" uid="uid://damr5u7s88y0n" path="res://sounds/water.ogg" id="7_yl2x1"]
+[ext_resource type="AudioStream" uid="uid://bcqbn86qos7f0" path="res://sounds/ambience.mp3" id="8_x6ab6"]
+[ext_resource type="PackedScene" uid="uid://ho1bdadiv1be" path="res://scenes/sign.tscn" id="9_0gcul"]
+[ext_resource type="Texture2D" uid="uid://dhnit8xgaask0" path="res://images/spotlight.png" id="10_5r0nd"]
+[ext_resource type="PackedScene" uid="uid://b7p3yrq8e80ql" path="res://scenes/cookie.tscn" id="11_7xd08"]
+[ext_resource type="Script" path="res://scripts/UI.gd" id="12_l5hbc"]
+[ext_resource type="FontFile" uid="uid://cni3hjbxy6pnu" path="res://fonts/Minecraftia-Regular.ttf" id="13_v48ck"]
+[ext_resource type="Texture2D" uid="uid://c74xvetdqjpbf" path="res://images/big_rock.png" id="14_sh26p"]
+[ext_resource type="Script" path="res://scripts/Finish.gd" id="15_47kdl"]
+[ext_resource type="AudioStream" uid="uid://c2dfu6tfkexwq" path="res://sounds/level-win.mp3" id="16_wa5lu"]
+[ext_resource type="Texture2D" uid="uid://b218s1i7yg2i4" path="res://images/cake.png" id="17_b2aoj"]
+[ext_resource type="Texture2D" uid="uid://c0hygk8rpmxd8" path="res://images/shine.png" id="18_nxf8d"]
+
+[sub_resource type="Curve" id="Curve_jh46o"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.73348, 49.2632), 0.0, 0.0, 0, 0, Vector2(1, 72), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_plgii"]
+curve = SubResource("Curve_jh46o")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f5uyr"]
+emission_shape = 3
+emission_box_extents = Vector3(1280, 0, 1)
+particle_flag_disable_z = true
+spread = 100.0
+gravity = Vector3(-100, 50, 0)
+initial_velocity_max = 41.84
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_min = -5.55
+angle_max = 25.0
+angle_curve = SubResource("CurveTexture_plgii")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_juyp4"]
+size = Vector2(48, 224)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_llx8l"]
+size = Vector2(48, 240)
+
+[sub_resource type="LabelSettings" id="LabelSettings_f10at"]
+font = ExtResource("13_v48ck")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ql3mq"]
+font = ExtResource("13_v48ck")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6jha1"]
+size = Vector2(30, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7eer"]
+size = Vector2(50.5, 54)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jpxq6"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 12.0
+emission_ring_inner_radius = 8.0
+particle_flag_disable_z = true
+gravity = Vector3(0, 25, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.2
+angle_max = 102.4
+scale_min = 0.0
+scale_max = 0.5
+hue_variation_max = 0.12
+
+[node name="world" type="Node2D"]
+script = ExtResource("1_hk2yf")
+
+[node name="Player" parent="." instance=ExtResource("2_dhybm")]
+position = Vector2(77, 170)
+collision_layer = 2
+
+[node name="PlayerCamera" type="Camera2D" parent="Player"]
+position = Vector2(-32, -80)
+offset = Vector2(16, 48)
+zoom = Vector2(3, 3)
+process_callback = 0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Player/PlayerCamera"]
+position = Vector2(0, -128)
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_f5uyr")
+texture = ExtResource("3_2e0dx")
+lifetime = 10.0
+collision_base_size = 0.0
+
+[node name="CollisionTilemap" parent="." instance=ExtResource("4_xai7g")]
+position = Vector2(0, 32)
+
+[node name="Background" parent="." instance=ExtResource("5_qxf4x")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(216, 368)
+shape = SubResource("RectangleShape2D_juyp4")
+
+[node name="Water" type="Area2D" parent="."]
+collision_mask = 2
+script = ExtResource("6_ol2nj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Water"]
+position = Vector2(216, 360)
+shape = SubResource("RectangleShape2D_llx8l")
+
+[node name="WaterSplash" type="AudioStreamPlayer2D" parent="Water"]
+stream = ExtResource("7_yl2x1")
+pitch_scale = 0.75
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.486275, 0.486275, 0.486275, 1)
+
+[node name="Ambience" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_x6ab6")
+volume_db = 8.0
+autoplay = true
+
+[node name="Signs" type="Node" parent="."]
+
+[node name="Jump" parent="Signs" instance=ExtResource("9_0gcul")]
+text = "Jump!"
+
+[node name="Collect" parent="Signs" instance=ExtResource("9_0gcul")]
+position = Vector2(47, 214)
+text = "Collect the Cookies!"
+
+[node name="Lights" type="Node" parent="."]
+
+[node name="PointLight2D" type="PointLight2D" parent="Lights"]
+visible = false
+position = Vector2(259, 53.5)
+scale = Vector2(4.28988, 2.29961)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("10_5r0nd")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Lights"]
+position = Vector2(0, -127)
+energy = 0.5
+shadow_enabled = true
+
+[node name="Cookies" type="Node" parent="."]
+
+[node name="Cookie" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(112, 208)
+scale = Vector2(0.75, 0.75)
+
+[node name="Cookie2" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(288, 208)
+scale = Vector2(0.75, 0.75)
+
+[node name="Cookie3" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(384, 206)
+scale = Vector2(0.75, 0.75)
+
+[node name="Cookie4" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(672, 304)
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie5" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(624, 208)
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie6" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(512, 192)
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie7" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(512, 160)
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie8" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(752, 202)
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie9" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(864, 192)
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie10" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(1056, 224)
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie11" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(1200, 256)
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie12" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(1200, 192)
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie13" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(1024, 160)
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie14" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(912, 128)
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie15" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(1244, 133)
+rotation = 0.0
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie16" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(1136, 80)
+rotation = 0.0
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie17" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(912, 64)
+rotation = 0.0
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie18" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(992, 16)
+rotation = 0.0
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie19" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(912, -16)
+rotation = 0.0
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie20" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(752, -32)
+rotation = 0.0
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie21" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(608, -32)
+rotation = 0.0
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie22" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(496, -32)
+rotation = 0.0
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie23" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(352, -32)
+rotation = 0.0
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie24" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(176, -64)
+rotation = 0.0
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie25" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(0, -2)
+rotation = 0.0
+scale = Vector2(0.5625, 0.5625)
+
+[node name="Cookie26" parent="Cookies" instance=ExtResource("11_7xd08")]
+position = Vector2(-112, 110)
+rotation = 0.0
+scale = Vector2(0.5625, 0.5625)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("12_l5hbc")
+
+[node name="CookieCounter" type="Label" parent="CanvasLayer"]
+offset_left = 32.0
+offset_right = 176.0
+offset_bottom = 64.0
+text = "COOKIES"
+label_settings = SubResource("LabelSettings_f10at")
+vertical_alignment = 1
+
+[node name="Timer" type="Label" parent="CanvasLayer"]
+offset_left = 608.0
+offset_right = 800.0
+offset_bottom = 64.0
+text = "TIMER"
+label_settings = SubResource("LabelSettings_ql3mq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Blocker" type="Node" parent="."]
+
+[node name="CollectMore" parent="Blocker" instance=ExtResource("9_0gcul")]
+position = Vector2(-232, 121)
+text = "Maybe, I need more cookies..."
+
+[node name="Area2D" type="CharacterBody2D" parent="Blocker"]
+position = Vector2(-257, 96)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocker/Area2D"]
+position = Vector2(0, -28)
+shape = SubResource("RectangleShape2D_6jha1")
+
+[node name="BigRock" type="Sprite2D" parent="Blocker/Area2D"]
+texture = ExtResource("14_sh26p")
+
+[node name="DoneBlock" type="Area2D" parent="."]
+position = Vector2(-478, 103)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("15_47kdl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoneBlock"]
+shape = SubResource("RectangleShape2D_s7eer")
+
+[node name="Win" type="AudioStreamPlayer2D" parent="DoneBlock"]
+position = Vector2(478, -103)
+stream = ExtResource("16_wa5lu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-503, 113)
+texture = ExtResource("17_b2aoj")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Sprite2D"]
+position = Vector2(-1, -12)
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_jpxq6")
+texture = ExtResource("18_nxf8d")
+
+[connection signal="body_shape_entered" from="Water" to="Water" method="_on_body_shape_entered"]
+[connection signal="body_shape_entered" from="DoneBlock" to="DoneBlock" method="_on_body_shape_entered"]

@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://b7p3yrq8e80ql"]
+
+[ext_resource type="Script" path="res://scripts/Cookie.gd" id="1_7esmy"]
+[ext_resource type="Texture2D" uid="uid://clno2yx2egiu4" path="res://images/cookie.png" id="2_3mb1q"]
+[ext_resource type="AudioStream" uid="uid://btlf1l2f2p04r" path="res://sounds/eat.ogg" id="3_hdkgf"]
+[ext_resource type="Texture2D" uid="uid://dhnit8xgaask0" path="res://images/spotlight.png" id="4_7cgy6"]
+[ext_resource type="Texture2D" uid="uid://c0hygk8rpmxd8" path="res://images/shine.png" id="5_7ys2x"]
+[ext_resource type="AudioStream" uid="uid://d1yagf2k7mw80" path="res://sounds/shiny.ogg" id="6_vw03c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b07qq"]
+size = Vector2(16, 16)
+
+[sub_resource type="Gradient" id="Gradient_mtmy7"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tnrux"]
+gradient = SubResource("Gradient_mtmy7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7m4yc"]
+emission_shape = 1
+emission_sphere_radius = 9.28
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_min = -156.7
+angle_max = 253.1
+scale_min = 0.2
+scale_max = 1.5
+color_ramp = SubResource("GradientTexture1D_tnrux")
+hue_variation_min = 0.02
+hue_variation_max = 0.11
+
+[node name="Cookie" type="Area2D"]
+position = Vector2(96, 208)
+rotation = 6.28319
+collision_mask = 2
+script = ExtResource("1_7esmy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_b07qq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3mb1q")
+
+[node name="Cookie" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-96, -208)
+stream = ExtResource("3_hdkgf")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.619608, 0.458824, 0.278431, 1)
+energy = 0.5
+texture = ExtResource("4_7cgy6")
+texture_scale = 0.2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_7m4yc")
+texture = ExtResource("5_7ys2x")
+
+[node name="Aaaaa" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_vw03c")
+volume_db = -18.0
+pitch_scale = 0.75
+autoplay = true
+max_distance = 50.0
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

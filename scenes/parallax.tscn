@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://dw201s0m6y7cd"]
+
+[ext_resource type="Texture2D" uid="uid://cdnmfibufqg7g" path="res://images/bgs/sky.png" id="1_icmic"]
+[ext_resource type="Texture2D" uid="uid://5wdtmb0b0am0" path="res://images/bgs/mountains.png" id="2_w7nka"]
+[ext_resource type="Texture2D" uid="uid://dyg6kdkormv64" path="res://images/bgs/trees.png" id="3_cp0gr"]
+[ext_resource type="Texture2D" uid="uid://cakvkfu142qwy" path="res://images/bgs/hills.png" id="4_4l1xi"]
+[ext_resource type="Texture2D" uid="uid://sh53fk0ykhf4" path="res://images/bgs/clouds.png" id="5_auqo1"]
+
+[node name="Background" type="ParallaxBackground"]
+follow_viewport_enabled = true
+follow_viewport_scale = 0.2
+
+[node name="Sky" type="ParallaxLayer" parent="."]
+texture_repeat = 2
+position = Vector2(480, -880)
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sky"]
+texture_repeat = 2
+position = Vector2(0, 896)
+texture = ExtResource("1_icmic")
+
+[node name="Mountains" type="ParallaxLayer" parent="."]
+position = Vector2(480, -880)
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Mountains"]
+texture_repeat = 2
+position = Vector2(0, 896)
+texture = ExtResource("2_w7nka")
+
+[node name="Trees" type="ParallaxLayer" parent="."]
+position = Vector2(480, -880)
+motion_scale = Vector2(0.65, 0.65)
+motion_mirroring = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Trees"]
+texture_repeat = 2
+position = Vector2(0, 896)
+texture = ExtResource("3_cp0gr")
+
+[node name="Hills" type="ParallaxLayer" parent="."]
+position = Vector2(480, -880)
+motion_scale = Vector2(0.65, 0.65)
+motion_mirroring = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Hills"]
+texture_repeat = 2
+position = Vector2(0, 896)
+texture = ExtResource("4_4l1xi")
+
+[node name="Clouds" type="ParallaxLayer" parent="."]
+position = Vector2(480, -880)
+motion_scale = Vector2(0.8, 0.8)
+motion_mirroring = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Clouds"]
+texture_repeat = 2
+position = Vector2(0, 896)
+texture = ExtResource("5_auqo1")

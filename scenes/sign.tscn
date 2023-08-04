@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://ho1bdadiv1be"]
+
+[ext_resource type="Script" path="res://scripts/Signage.gd" id="1_68wpi"]
+[ext_resource type="Texture2D" uid="uid://drdp1xff65gkj" path="res://images/sign.png" id="2_cip0y"]
+[ext_resource type="FontFile" uid="uid://cni3hjbxy6pnu" path="res://fonts/Minecraftia-Regular.ttf" id="3_6guhy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vuivk"]
+size = Vector2(54, 20)
+
+[sub_resource type="Theme" id="Theme_0cop6"]
+default_font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_cwvg1"]
+font = ExtResource("3_6guhy")
+font_size = 8
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 1)
+
+[node name="Sign" type="Area2D"]
+z_index = 1
+position = Vector2(160, 214)
+collision_mask = 2
+script = ExtResource("1_68wpi")
+text = "Hello!"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vuivk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 0
+texture = ExtResource("2_cip0y")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(200, 0)
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.254
+anchor_right = 0.125
+anchor_bottom = 0.254
+offset_left = -101.0
+offset_top = -44.0
+offset_right = 99.0
+offset_bottom = -18.0
+grow_horizontal = 2
+theme = SubResource("Theme_0cop6")
+text = "Text"
+label_settings = SubResource("LabelSettings_cwvg1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="." to="." method="_on_body_shape_exited"]

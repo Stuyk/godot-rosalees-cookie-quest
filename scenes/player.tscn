@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://cfqlj237podfe"]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_3hsbn"]
+[ext_resource type="Texture2D" uid="uid://o0sus2gjb50h" path="res://images/player/rosalee000.png" id="2_xe4r5"]
+[ext_resource type="Texture2D" uid="uid://es5sifv4sstg" path="res://images/player/rosalee001.png" id="3_8npgd"]
+[ext_resource type="Texture2D" uid="uid://5x4vsnoqmsjn" path="res://images/player/rosalee002.png" id="4_6bndv"]
+[ext_resource type="Texture2D" uid="uid://cl3mvjbgod8ep" path="res://images/player/rosalee003.png" id="5_cupc4"]
+[ext_resource type="AudioStream" uid="uid://7nbnvcbm14g1" path="res://sounds/walking.ogg" id="6_ug5or"]
+[ext_resource type="AudioStream" uid="uid://bcg65y1kyg68m" path="res://sounds/jump.ogg" id="7_7kh8w"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5mv4"]
+radius = 6.0
+height = 16.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ymvry"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xe4r5")
+}],
+"loop": true,
+"name": &"stand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xe4r5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8npgd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_6bndv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cupc4")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 2
+script = ExtResource("1_3hsbn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_o5mv4")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ymvry")
+animation = &"stand"
+
+[node name="WalkingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_ug5or")
+volume_db = -25.0
+pitch_scale = 1.25
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_7kh8w")
+volume_db = -5.0
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
